@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CC五子棋</title>
+    <link rel="icon" type="image/GIF" href="res/favicon.ico"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <style>
+        body, canvas, div {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -khtml-user-select: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+    </style>
+</head>
+<body style="padding:0; margin: 0; background: #000;">
+    <script type="text/javascript" src="js/compressed/promise-1.0.0.min.js" charset="UTF-8"></script>
+    <!--     <script type="text/javascript" src="js/compressed/client.min.js" charset="UTF-8"></script> -->
+    <script type="text/javascript" src="js/client.js" charset="UTF-8"></script>
+	<script type="text/javascript">
+        // console.log = function(msg){
+        // 	alert(msg);
+        // }
+        // console.error = function(msg){
+        // 	alert(msg);
+        // }
+        window.onerror = function(msg, url, linenumber) {
+            alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
+            return true;
+        }
+        var thazz = this;
+        if(false){
+            var cachetime = 1*24*60*60*1000;
+            cachetime = 5*60*1000;
+            var cacheon = true;
+            var _cc;
+        	var _ccs;
+            function loadXMLDoc(url, callback, async){
+                var xmlhttp;
+                if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp=new XMLHttpRequest();
+                }
+                else{// code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                if(async){
+                    xmlhttp.onreadystatechange=function(){
+                        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                            var text=xmlhttp.responseText;
+                            callback(text);
+                        }
+                    }
+                }
+                xmlhttp.open("GET",url,async);
+                xmlhttp.send();
+                if(!async){
+                    var text=xmlhttp.responseText;
+                    callback(text);
+                }
+            }
+            var storage = new CrossStorageClient('http://open.qhkly.com/hub.html', {
+                timeout: 5000,
+                frameId: 'storageFrame'
+            });
+            storage.onConnect().then(function() {
+                if(!cacheon){
+                    storage.clear();
+                }
+            }).then(function() {
+                return storage.del('key1', 'key2');
+            }).then(function() {
+                return storage.getKeys();
+            }).then(function(keys) {
+                if(!cacheon){
+                    //alert(keys);
+                }
+            }).then(function() {
+                // Set a key with a TTL of 90 seconds
+                return storage.get(['js/compressed/jweixin-1.0.0.js']);
+            }).then(function(res) {
+                if(res == null){
+                    loadXMLDoc('js/compressed/jweixin-1.0.0.js', function(text){
+                        eval(text);
+                        if(cacheon){
+                            storage.set({'js/compressed/jweixin-1.0.0.js': text}, cachetime);
+                        }
+                    },false);
+                }else{
+                    eval(res);
+                }
+                //return storage.get('existingKey', 'newKey');
+            }).then(function() {
+                return storage.get(['js/cocos2d-js-v3.6_ccs.js']);
+            }).then(function(res) {
+                if(res == null){
+                    loadXMLDoc('js/cocos2d-js-v3.6_ccs.js', function(text){
+                        eval(text);
+                        _cc = cc;
+                        _ccs = ccs;
+                        if(cacheon){
+                            storage.set({'js/cocos2d-js-v3.6_ccs.js': text}, cachetime);
+                        }
+                    },false);
+                }else{
+                    //alert(res);
+                    eval(res);
+                    _cc = cc;
+                    _ccs = ccs;
+                }
+            }).then(function() {
+                return storage.get(['main.js']);
+            }).then(function(res) {
+                if(res == null){
+                    loadXMLDoc('main.js', function(text){
+                        cc = _cc;
+                        ccs = _ccs;
+                        eval(text);
+                        if(cacheon){
+                            storage.set({'main.js': text}, cachetime);
+                        }
+                    },false);
+                }else{
+                    cc = _cc;
+                    ccs = _ccs;
+                    eval(res);
+                }
+            }).catch(function(err) {
+                alert(err);
+            }).then(function() {
+                //storage.close();
+            });
+            var convertImgToBase64 = function(url, callback){
+                var img = new Image;
+                img.crossOrigin = 'Anonymous';
+                img.onload = function(){
+                    //alert(img.height);
+                    var canvas = document.createElement('CANVAS');
+                	var ctx = canvas.getContext('2d');
+                    canvas.height = img.height;
+                    canvas.width = img.width;
+                    ctx.drawImage(img,0,0);
+                    var dataURL = canvas.toDataURL('image/jpeg');//'image/png or jpg or jpeg'
+                    callback(dataURL);
+                    // Clean up
+                    canvas = null;
+                };
+                img.src = url;
+            };
+            var uurl = 'http://www.qhkly.com/wuziqi-web/res/HD/a.png';
+            uurl = 'http://bae.qhkly.com:30352/mmopen/ajNVdqHZLLB02G9XZXkal6Fomkrp109glFPzE0GTyhdgeUsiciaxe0qzz37KEfmRqNEicUAdFuanDnG4J45ayypxw/0';
+            //convertImgToBase64(uurl, function(data){
+                //alert(data);
+            //});
+        }
+	</script>
+<canvas id="gameCanvas" width="800" height="450"></canvas>
+<script src="js/compressed/jweixin-1.0.0.js"></script>
+<!-- <script type="text/javascript" src="http://bae.qhkly.com:30352/weinre/target/target-script-min.js#anonymous"></script>
+<script type="text/javascript" src="frameworks/cocos2d-html5/CCBoot.js"></script> -->
+<script type="text/javascript" src="js/compressed/cocos2d-js-v3.6_ccs_socketio.min.js"></script>
+<!-- <script type="text/javascript" src="cocos2d-js-v3.6_ccs.js"></script>
+<script type="text/javascript" src="frameworks/cocos2d-html5/external/socketio/socket.io.min.js" charset="UTF-8"></script> -->
+<!-- <script src="publish/html5/game.min.js"></script> -->
+<script src="main.js"></script>
+</body>
+</html>

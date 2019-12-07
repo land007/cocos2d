@@ -1,0 +1,28 @@
+<UserData>
+  <Properties>
+    <Item Key="PackageParamsKey">
+      <Value ctype="PackageParams">
+        <LuaIsEncrypt Value="False" />
+        <LuaEncryptKey Value="" />
+        <LuaEncryptSign Value="" />
+        <Android_PackageName Value="org.cocos.wuziqi" />
+        <AndroidkeyStore Value="" />
+        <AndroidVersion Value="android-10" />
+        <iOS_Target Value="wuziqi iOS" />
+        <iOS_BundleID Value="iPhone Developer: jia he (GBZ6DLKDGW)" />
+        <Platform Value="HTML5" />
+        <FrameworkVersion Value="cocos2d-x-3.6" />
+        <IsDebugKeystore Value="True" />
+        <EnableSourceMap Value="False" />
+        <EnableHTML5Advanced Value="False" />
+      </Value>
+    </Item>
+    <Item Key="CocosRecentOperation">
+      <Value ctype="CocosRecentOperation">
+        <LastPublishType Value="Resource" />
+        <IsLastPublish Value="False" />
+        <LastRunType Value="Unknown" />
+      </Value>
+    </Item>
+  </Properties>
+</UserData>
